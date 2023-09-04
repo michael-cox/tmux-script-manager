@@ -90,11 +90,11 @@ def escape_inner_quotes(s):
 
 def get_args():
     parser = argparse.ArgumentParser(prog='update-aliases', description='update tmux aliases')
-    parser.add_argument('-s', '--load-static-aliases', help='specify a json file from which to load static aliases', type=pathlib.Path, default=STATIC_ALIASES_FILE)
+    parser.add_argument('-s', '--load-static-aliases', help='specify a json file from which to load static aliases (default: ~/{})'.format(str(STATIC_ALIASES_FILE.relative_to(pathlib.Path.home()))), type=pathlib.Path, default=STATIC_ALIASES_FILE)
     parser.add_argument('-d', '--dry-run', help='print the resulting command-aliases rather than loading them', action='store_true')
     parser.add_argument('-i', '--command-index', help='specify a command-alias index to start at', type=int, default=CMD_START_IDX)
     parser.add_argument('--dont-reset', help='do not reset the command aliases before updating', action='store_true')
-    parser.add_argument('-w', '--write', help='write aliases to ~/.tmux/conf/aliases.conf', action='store_true')
+    parser.add_argument('-w', '--write', help='write aliases to ~/.config/tmux/conf/aliases.conf', action='store_true')
     return parser.parse_args()
     
 def main():
